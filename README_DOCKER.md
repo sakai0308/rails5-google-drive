@@ -17,6 +17,13 @@ default: &default
   host: db
 ```
 
+## .envを作成
+```
+CLIENT_ID="xxxx"
+CLIENT_SECRET="xxxx"
+REFRESH_TOKEN="xxxx"
+```
+
 ## ビルド&起動
 docker-compose up -d
 docker-compose ps
