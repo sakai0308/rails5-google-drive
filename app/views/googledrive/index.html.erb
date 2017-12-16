@@ -1,0 +1,7 @@
+<h1>Hello!</h1>
+
+<ul class="list-group">
+<% @session.files.each do |file| %>
+	<li class="list-group-item"><%= file.title %></li>
+<% end %>
+</ul>
