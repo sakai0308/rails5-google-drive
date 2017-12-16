@@ -24,6 +24,9 @@ docker-compose ps
 ## DB作成 
 docker-compose exec web bin/rake db:create db:migrate db:seed
 
+## ブラウザで確認
+http://localhost:3000/
+
 ---
 
 # scaffold手順
