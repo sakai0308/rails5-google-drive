@@ -23,6 +23,8 @@ CLIENT_ID="xxxx"
 CLIENT_SECRET="xxxx"
 REFRESH_TOKEN="xxxx"
 ```
+## bundle installの実行
+docker-compose exec web bundle install
 
 ## ビルド&起動
 docker-compose up -d
@@ -58,4 +60,4 @@ docker-compose down
 
 ## dockerイメージを削除する時
 docker images
-docker rmi rails5dockercompose_web
+docker rmi xxx
