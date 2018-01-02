@@ -1,7 +1,19 @@
-<h1>Hello!</h1>
-
-<ul class="list-group">
-<% @session.files.each do |file| %>
-	<li class="list-group-item"><%= file.title %></li>
-<% end %>
-</ul>
+<div class="row">
+  <div class="col-6 sidebar">
+    <ul class="list-group">
+    <% @files.each do |file| %>
+      <li class="list-group-item">
+        <span style="padding-left:<%= file[:depth] * 20 %>px;"><img src="<%= file[:icon_link] %>" />
+          <!--<a href="<%= file[:web_view_link] %>" target="_blank"><%= file[:title] %></a>-->
+          <%= link_to file[:title], googledrive_get_docs_path(ajax_handler: 'handle_name1', id: file.id), remote: true %>
+          <span class="glyphicon glyphicon-new-window"></span>
+          <button class="btn btn-primary" name="add_member"><i class="glyphicon glyphicon-plus"></i> 追加</button>
+        </span>
+      </li>
+    <% end %>
+    </ul>
+  </div>
+  <div class="col-6 offset-6">
+    <div id="ajax-response-wrapper" />
+  </div>
+</div>

@@ -21,3 +21,6 @@
 
 # Ignore .env
 .env
+
+# Ignore public/output_file
+public/output_file

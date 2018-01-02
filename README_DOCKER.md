@@ -17,7 +17,7 @@ default: &default
   host: db
 ```
 
-## .envを作成
+## .envを作成(Google Drive API実行の為)
 ```
 CLIENT_ID="xxxx"
 CLIENT_SECRET="xxxx"
@@ -30,23 +30,15 @@ docker-compose exec web bundle install
 docker-compose up -d
 docker-compose ps
 
-## DB作成 
+## DB作成
 docker-compose exec web bin/rake db:create db:migrate db:seed
+
+## Google Driveからデータ取得するバッチ実行(ファイル数によっては時間かかります)
+docker-compose exec web bash
+rails runner Tasks::Batch.execute
 
 ## ブラウザで確認
 http://localhost:3000/
-
----
-
-# scaffold手順
-
-## scaffold
-docker-compose exec web rails g scaffold users name:string
-## マイグレーション
-docker-compose exec web rails db:migrate
-
-## ブラウザで確認
-http://localhost:3000/users
 
 ---
 
@@ -61,3 +53,15 @@ docker-compose down
 ## dockerイメージを削除する時
 docker images
 docker rmi xxx
+
+---
+
+# scaffold手順
+
+## scaffold
+docker-compose exec web rails g scaffold users name:string
+## マイグレーション
+docker-compose exec web rails db:migrate
+
+## ブラウザで確認
+http://localhost:3000/users

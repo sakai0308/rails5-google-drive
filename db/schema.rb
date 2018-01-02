@@ -10,6 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20180101080714) do
+
+  create_table "google_drive_data", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "fileid"
+    t.string   "title"
+    t.integer  "depth"
+    t.string   "mime_type"
+    t.string   "icon_link"
+    t.string   "web_view_link"
+    t.string   "parent"
+    t.string   "owner"
+    t.string   "permission"
+    t.text     "content",       limit: 65535
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
 
 end

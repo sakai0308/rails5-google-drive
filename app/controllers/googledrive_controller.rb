@@ -1,28 +1,29 @@
 class GoogledriveController < ApplicationController
-	def index
-		client_id     = ENV["CLIENT_ID"]
-		client_secret = ENV["CLIENT_SECRET"]
-		refresh_token = ENV["REFRESH_TOKEN"]
+  protect_from_forgery except: :get_docs # get_docsアクションを除外
 
-		client = OAuth2::Client.new(
-		    client_id,
-		    client_secret,
-		    site: "https://accounts.google.com",
-		    token_url: "/o/oauth2/token",
-		    authorize_url: "/o/oauth2/auth"
-		)
-		auth_token = OAuth2::AccessToken.from_hash(client,{:refresh_token => refresh_token, :expires_at => 3600})
-		auth_token = auth_token.refresh!
-		@session = GoogleDrive.login_with_oauth(auth_token.token)
+  def index
+    @files = GoogleDriveDatum.all
+  end
 
-		#session.files(q: "trashed = false and 'me' in owners") do |file|
-		#session.files() do |file|
-		#    owners = []
-		#    file.owners.each do |owner|
-		#        owners = "#{owner.display_name} <#{owner.email_address}>"
-		#    end
-		#
-		#    puts "Debug: #{file.id} #{file.title} #{file.kind} #{owners}"
-		#end
-	end
+  def get_docs
+    ajax_action unless params[:ajax_handler].blank?
+
+    # Ajaxリクエストではない時の処理
+  end
+
+  def ajax_action
+    if params[:ajax_handler] == 'handle_name1'
+      # Ajaxの処理
+      id = params[:id]
+      data = GoogleDriveDatum.find(id)
+      @output_html = "表示不可"
+      if data.content != ""
+        File.open(data.content, "r") do |f|
+          @output_html = f.read
+        end
+      end
+      render
+    end
+  end
+
 end
