@@ -5,6 +5,10 @@ class GoogledriveController < ApplicationController
     @files = GoogleDriveDatum.all
   end
 
+  def docs
+    @files = GoogleDriveDatum.where("content <> ''")
+  end
+
   def get_docs
     ajax_action unless params[:ajax_handler].blank?
 
