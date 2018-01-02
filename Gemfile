@@ -43,6 +43,8 @@ gem 'oauth2'
 # Bootstrap
 gem 'bootstrap', '~> 4.0.0.beta2'
 gem 'jquery-rails'
+gem 'less-rails'              # Railsでlessを使えるようにする。Bootstrapがlessで書かれているため
+gem 'twitter-bootstrap-rails' # Bootstrapの本体
 
 # .env読み込み
 gem 'dotenv-rails'

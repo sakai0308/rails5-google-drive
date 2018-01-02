@@ -10,14 +10,13 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- * 指定されたディレクトリ以下のすべてを再帰的にインクルード(順番の保証なし)
- *= require_tree .
  * require_self呼び出しが行われたその場所にCSSファイルがあれば読み込みます
  *= require_self
+ * 指定されたディレクトリ以下のすべてを再帰的にインクルード(順番の保証なし)
+ *= require_tree .
  */
 
 // Custom bootstrap variables must be set or imported *before* bootstrap.
-@import "bootstrap-sprockets";
 @import "bootstrap";
 
 .sidebar {
