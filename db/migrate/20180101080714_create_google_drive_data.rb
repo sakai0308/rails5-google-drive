@@ -10,6 +10,8 @@ class CreateGoogleDriveData < ActiveRecord::Migration[5.0]
       t.string :parent
       t.string :owner
       t.string :permission
+      t.string :filepath
+      t.string :fullpath
       t.text   :content
 
       t.timestamps

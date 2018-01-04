@@ -25,10 +25,10 @@ class GoogleDriveDatum < ApplicationRecord
 
     #DBデータ更新
     GoogleDriveDatum.delete_all
-    search("'root' in parents and trashed = false and 'me' in owners", 0, '')
+    search("'root' in parents and trashed = false and 'me' in owners", 0, '', '/')
   end
 
-  def self.search(q, depth, parent)
+  def self.search(q, depth, parent, filepath)
     @session.files(q: q) do |file|
       # get owners
       owners = []
@@ -44,9 +44,9 @@ class GoogleDriveDatum < ApplicationRecord
       #ドキュメントの中身取得
       content = ""
       if file.mime_type == 'application/vnd.google-apps.document'
-        filepath = "public/output_file/" + file.id
-        @session.drive.export_file(file.id,'text/html',download_dest: filepath)
-        content = filepath
+        filedir = "public/output_file/" + file.id
+        @session.drive.export_file(file.id,'text/html',download_dest: filedir)
+        content = filedir
       end
 
       #各種情報取得
@@ -70,6 +70,8 @@ class GoogleDriveDatum < ApplicationRecord
         :parent => parent,
         :owner => owners,
         :permission => permissions,
+        :filepath => filepath,
+        :fullpath => filepath + title,
         :content => content
       }
 
@@ -80,7 +82,7 @@ class GoogleDriveDatum < ApplicationRecord
 
       #フォルダーの中を検索
       if file.mime_type == 'application/vnd.google-apps.folder' and depth < MAX_DEPTH
-        search("'#{file.id}' in parents and trashed = false and 'me' in owners", depth + 1, file.id)
+        search("'#{file.id}' in parents and trashed = false and 'me' in owners", depth + 1, file.id, filepath + title + '/')
       end
     end
   end

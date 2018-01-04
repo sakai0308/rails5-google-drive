@@ -22,6 +22,8 @@ ActiveRecord::Schema.define(version: 20180101080714) do
     t.string   "parent"
     t.string   "owner"
     t.string   "permission"
+    t.string   "filepath"
+    t.string   "fullpath"
     t.text     "content",       limit: 65535
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
